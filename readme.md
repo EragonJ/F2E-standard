@@ -24,11 +24,11 @@ photoframe only accepted ` image ` is a object.
     
 @param      
 
-  - {object} : optations
-  - {number} options.frameWidth Width of photo frame
-  - {number} options.frameHeight Height of photo frame
-  - {string} options.wrapperClass Class name for photo frame
-  - {string|number} options.scale `number` `lettetBox` `zoomEven` `zoomStretch` `none`  
+  - **{ object }** : optations
+  - **{ number }** options.frameWidth Width of photo frame
+  - **{ number }** options.frameHeight Height of photo frame
+  - **{ string }** options.wrapperClass Class name for photo frame
+  - **{ string | number }** options.scale `number` `lettetBox` `zoomEven` `zoomStretch` `none`  
 
 `number` : Both width and height of photo will scale with the value.
      
