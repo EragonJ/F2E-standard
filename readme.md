@@ -31,15 +31,15 @@ photoframe only accepted ` image ` is a object.
   - {string} options.wrapperClass Class name for photo frame
   - {string|number} options.scale `number` `lettetBox` `zoomEven` `zoomStretch` `none`  
 
-1.     `number` : Both width and height of photo will scale with the value.
+`number` : Both width and height of photo will scale with the value.
      
-2.     `letter` : uniformly scales up content as much as possible, while still showing all content on the screen.
+`letter` : uniformly scales up content as much as possible, while still showing all content on the screen.
 
-3.     `zoomEven` : uniformly scales up content to fill the screen, while preserving aspect ratio. Some content may appear offscreen.
+`zoomEven` : uniformly scales up content to fill the screen, while preserving aspect ratio. Some content may appear offscreen.
 
-4.     `zoomStretch` : non-uniformly scales up content to fill the screen. All content will remain onscren, but it may be stretched vertically or horizontally.
+`zoomStretch` : non-uniformly scales up content to fill the screen. All content will remain onscren, but it may be stretched vertically or horizontally.
 
-5.     `none` : No scalling.
+`none` : No scalling.
 
 @example
 
