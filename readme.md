@@ -9,8 +9,7 @@ EragonJ
 Mitch Chen
 
 photoframe
-=========
-
+-
 
 photoframe is a jquery widget can makes image into photo frame by wrapping a `DIV` element 
 
@@ -19,9 +18,9 @@ Using
 photoframe only accepted ` image ` is a object.
 
 @sample
-
+```javascript
     var $img = $("<img>");
-    
+```    
     
 @param      
 
@@ -43,12 +42,13 @@ photoframe only accepted ` image ` is a object.
 
 @example
 
+```javascript
     $('.Selector').photoFrame({
         frameWidth: 140,  // width of photo frame
 		frameHeight: 140, //Height of photo frame
 		scale: "zoomEven" //scale
     });
-
+```
 
 Tech
 -----------
