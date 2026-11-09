@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfcfa">
+<title>HYROX 四週訓練菜單</title>
+<style>
+:root { --fg:#1d2a24; --muted:#5d6963; --line:#e2e7e2; --accent:#2e5942; --bg:#fbfcfa; --white:#fff; --tagbg:#eef4ed; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei","Noto Sans TC",Arial,sans-serif; font-size:15px; line-height:1.55; }
+a { color:#246e4b; }
+.page { max-width:1130px; margin:0 auto; padding:38px 28px 80px; }
+.intro { border-bottom:1px solid var(--line); padding-bottom:24px; }
+.kicker { display:block; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.2em; margin-bottom:9px; }
+h1 { font-size:clamp(28px,3.2vw,39px); letter-spacing:-.045em; line-height:1.15; margin:0; font-weight:800; }
+.lede { color:var(--muted); font-size:14px; margin:13px 0 0; }
+.nav { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.nav a { color:var(--fg); text-decoration:none; border:1px solid var(--line); border-radius:6px; padding:7px 13px; font-size:13px; background:white; font-weight:650; }
+.nav a:hover,.nav a:focus-visible { border-color:var(--accent); color:var(--accent); }
+.week-section { padding-top:42px; scroll-margin-top:18px; }
+.week-head { display:flex; justify-content:space-between; align-items:end; gap:22px; margin-bottom:16px; }
+.week-kicker { color:var(--accent); font-weight:800; letter-spacing:.12em; font-size:11px; margin-bottom:4px; }
+h2 { font-size:24px; font-weight:780; margin:0; letter-spacing:-.03em; line-height:1.35; }
+h2 span { font-size:17px; color:var(--muted); font-weight:450; margin-left:8px; }
+.week-head p { color:var(--muted); text-align:right; font-size:13px; max-width:480px; margin:0 0 1px; }
+.days { border:1px solid var(--line); border-radius:11px; overflow:hidden; background:#fff; }
+.day-row { display:grid; grid-template-columns:112px minmax(0,1fr); border-top:1px solid var(--line); min-height:72px; }
+.day-row:first-child { border-top:0; }
+.day-label { display:flex; align-items:flex-start; flex-direction:column; padding:17px 19px; gap:1px; border-right:1px solid var(--line); background:#fcfdfb; }
+.day-en { color:var(--accent); font-size:11px; font-weight:900; letter-spacing:.07em; }
+.day-zh { font-size:13px; color:#606d64; }
+.day-workouts { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr)); gap:9px; padding:10px; align-items:start; min-width:0; }
+.workout { min-width:0; background:#fff; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+.workout summary { cursor:pointer; padding:12px 13px; display:flex; align-items:center; gap:9px; list-style:none; min-height:46px; outline-offset:3px; }
+.workout summary::-webkit-details-marker { display:none; }
+.workout summary:hover { background:#fbfdfb; }
+.workout[open] { border-color:#bdcbbf; }
+.type { white-space:nowrap; display:inline-block; font-size:10px; font-weight:750; padding:3px 6px; border-radius:3px; color:#497258; background:#eef4ed; letter-spacing:.01em; }
+.type-run { color:#2a6f50; background:#e8f4eb; }
+.type-bike { color:#6b5594; background:#f0ebf8; }
+.type-quality { color:#ab6134; background:#fff0e7; }
+.type-strength { color:#8f4a4a; background:#fbefed; }
+.type-hyrox { color:#9b6223; background:#fff2db; }
+.type-recovery { color:#6d7872; background:#edf0ed; }
+.workout-title { font-weight:690; font-size:13px; line-height:1.35; flex:1; min-width:0; }
+.duration { color:#66746a; font-size:11px; white-space:nowrap; }
+.toggle { font-size:16px; font-weight:400; color:#8b9890; flex-shrink:0; line-height:1; }
+.workout[open] .toggle { transform:rotate(45deg); }
+.workout-body { border-top:1px solid var(--line); padding:13px; font-size:12.5px; color:#46544c; line-height:1.65; }
+.workout-body .desc { margin:0 0 10px; }
+.steps { list-style:none; padding:0; margin:0; }
+.steps li { display:flex; gap:6px 9px; padding:7px 0; border-top:1px solid #eef1ed; flex-wrap:wrap; }
+.step-name { font-weight:700; color:#27392d; }
+.step-dose { color:#66736b; }
+.jump-protocol { margin:12px 0 0; }
+.tiny-note { font-size:11px; color:#7b877d; margin:9px 0 0; }
+.rest-card { background:#f4f7f3; color:#516458; border:1px solid #edf1ed; border-radius:7px; display:flex; align-items:center; gap:10px; padding:12px 13px; font-size:13px; font-weight:650; }
+.rest-card small { color:#849086; font-size:11px; font-weight:400; }
+.protocol { border-top:1px solid var(--line); padding-top:45px; margin-top:48px; scroll-margin-top:25px; }
+.protocol h2 { margin:0 0 7px; }
+.protocol .protocol-lede { color:var(--muted); font-size:14px; margin:0 0 24px; max-width:740px; }
+.dose-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin:0 0 30px; }
+.dose-cell { padding:16px; background:#f1f6f0; border:1px solid #e1e9df; border-radius:7px; display:flex; flex-direction:column; gap:3px; }
+.dose-cell b { color:var(--accent); font-size:11px; }
+.dose-cell strong { font-size:20px; }
+.dose-cell small { color:var(--muted); }
+.protocol h3 { font-size:17px; margin:22px 0 11px; }
+.warmups { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.warm-item { background:#fff; border:1px solid var(--line); border-radius:8px; padding:15px; display:flex; flex-direction:column; gap:4px; }
+.warm-item b { color:var(--accent); font-size:21px; }
+.warm-item span { font-size:13px; }
+.main-note { color:#606d64; font-size:13px; margin:0 0 12px; }
+.stations { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.station { border:1px solid var(--line); padding:20px; border-radius:8px; background:#fff; }
+.station-no { color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.08em; }
+.station h4 { font-size:16px; margin:7px 0 7px; }
+.station-dose { color:#263b30; font-size:14px; font-weight:600; }
+.erg { color:#68766c; margin-top:9px; font-size:12px; border-top:1px solid #edf0ec; padding-top:9px; }
+.rules { background:#eff5ed; border-left:3px solid #417359; padding:14px 16px; margin:17px 0 0; font-size:13px; line-height:1.8; color:#385244; }
+.cue-list { margin:0; padding:0 0 0 20px; font-size:14px; color:#46554c; line-height:1.9; }
+.cue-list li { padding-left:3px; }
+.footer { padding-top:28px; color:#819087; font-size:12px; border-top:1px solid var(--line); margin-top:42px; }
+@media (max-width:760px) {
+ .page { padding:25px 15px 50px; }
+ .week-section { padding-top:35px; }
+ .week-head { display:block; }
+ .week-head p { margin-top:8px; text-align:left; }
+ .day-row { grid-template-columns:70px minmax(0,1fr); }
+ .day-label { padding:14px 10px; }
+ .day-workouts { display:flex; flex-direction:column; padding:8px; gap:7px; }
+ .workout,.rest-card { width:100%; }
+ .workout summary { padding:11px 10px; gap:7px; }
+ .type { font-size:9px; padding:3px 5px; }
+ .workout-title { font-size:12px; }
+ .duration { font-size:10px; }
+ .rest-card { flex-wrap:wrap; }
+ .rest-card small { width:100%; }
+ .warmups { grid-template-columns:repeat(2,1fr); }
+ .stations { grid-template-columns:1fr; }
+ .dose-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:380px) {
+ .day-row { grid-template-columns:62px minmax(0,1fr); }
+ .day-label { padding:14px 7px; }
+ .workout summary { flex-wrap:wrap; }
+ .workout-title { min-width:calc(100% - 64px); }
+ .duration { margin-left:auto; }
+}
+@media print {
+ body { background:white; color:black; font-size:11px; }
+ .page { max-width:none; margin:0; padding:0; }
+ .intro { padding-bottom:10px; }
+ .nav { display:none; }
+ .week-section { padding-top:22px; break-before:page; }
+ .week-section:first-of-type { break-before:auto; }
+ .day-row, .workout, .protocol, .station { break-inside:avoid; }
+ .days { border-radius:0; }
+ .workout-body { display:block !important; }
+ details:not([open]) > *:not(summary) { display:block !important; }
+ .footer { display:none; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <span class="kicker">HYROX TRAINING PLAN</span>
+    <h1>四週 HYROX 訓練菜單</h1>
+    <p class="lede">完整四週安排｜跑步、有氧、力量與 HYROX 專項。點選訓練可展開動作內容。</p>
+    <nav class="nav" aria-label="跳至訓練週次"><a href="#week-1">第 1 週</a><a href="#week-2">第 2 週</a><a href="#week-3">第 3 週</a><a href="#week-4">第 4 週</a><a href="#hyrox-endurance">Endurance 細節</a></nav>
+  </header>
+  <section id="week-1" class="week-section">
+      <header class="week-head"><div><div class="week-kicker">WEEK 01</div><h2>第一週 <span>建立基礎</span></h2></div><p>穩定堆疊 Z2 有氧量，Tempo 輕觸 Z3，建立肌耐力 B / C。</p></header>
+      <div class="days"><div class="day-row">
+          <div class="day-label"><span class="day-en">MON</span><span class="day-zh">星期一</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 35′ Z2</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">35 分鐘</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">TUE</span><span class="day-zh">星期二</span></div>
+          <div class="day-workouts"><details class="workout workout-bike">
+              <summary>
+                <span class="type type-bike">單車</span>
+                <span class="workout-title">有氧單車 60′ Z2</span>
+                <span class="duration">60 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以低衝擊的單車訓練累積 Z2 有氧時間。</p><ul class="steps"><li><span class="step-name">Z2 Aerobic Base Bike</span><span class="step-dose">60 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">肌耐力 B｜Muscular Endurance</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">KB Deadlift</span><span class="step-dose">壺鈴硬舉</span></li><li><span class="step-name">KB Farmer’s Walk</span><span class="step-dose">壺鈴農夫走路</span></li><li><span class="step-name">Broad Jump</span><span class="step-dose">立定跳遠</span></li><li><span class="step-name">Double KB Push Press</span><span class="step-dose">雙壺鈴借力推舉</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">WED</span><span class="day-zh">星期三</span></div>
+          <div class="day-workouts"><details class="workout workout-quality">
+              <summary>
+                <span class="type type-quality">節奏／閾值</span>
+                <span class="workout-title">Tempo Run｜30′ Z3</span>
+                <span class="duration">55 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">主課表為 30 分鐘 Z3 Tempo；截圖標註整堂課計畫 55 分鐘，但未展示暖身與收操的細部分配。</p><ul class="steps"><li><span class="step-name">Tempo Run</span><span class="step-dose">30 分鐘 @ Z3</span></li><li><span class="step-name">其餘時間</span><span class="step-dose">暖身／收操細節未提供</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">THU</span><span class="day-zh">星期四</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 30′ Z2</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">30 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">肌耐力 C｜Muscular Endurance</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Alternating DB Lunge</span><span class="step-dose">交替啞鈴弓步</span></li><li><span class="step-name">Plank to Squat</span><span class="step-dose">平板轉深蹲</span></li><li><span class="step-name">DB Push Press</span><span class="step-dose">啞鈴借力推舉</span></li><li><span class="step-name">Single Arm KB Swing</span><span class="step-dose">單手壺鈴擺盪</span></li></ul><p class="tiny-note">原圖僅顯示預定課程，未見實際完成紀錄。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">FRI</span><span class="day-zh">星期五</span></div>
+          <div class="day-workouts"><div class="rest-card"><span class="type type-recovery">REST</span><span>休息 / 活動度</span><small>依個人狀況恢復</small></div></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SAT</span><span class="day-zh">星期六</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">長跑 60′ Z2＋Strides</span>
+                <span class="duration">60 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以 60 分鐘 Z2 輕鬆跑為主，附加加速跑 Strides；截圖未提供 Strides 次數與距離。</p><ul class="steps"><li><span class="step-name">Z2 長跑</span><span class="step-dose">60 分鐘</span></li><li><span class="step-name">Strides 加速跑</span><span class="step-dose">次數／距離未提供</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SUN</span><span class="day-zh">星期日</span></div>
+          <div class="day-workouts"><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">HYROX Endurance｜4 輪</span>
+                <span class="duration">64 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 個 E4MOM 站點 × 4 輪（主課表 64 分鐘；不含 16 分鐘熱身），全程以 RPE 5–6/10 維持中等強度，Erg 以 RPE 4 恢復並保持一致輸出。</p><ul class="steps"><li><span class="step-name">Burpees ＋ Burpee Broad Jump</span><span class="step-dose">10 Burpees to Plate ＋ 20 m BBJ → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Sandbag Walking Lunges</span><span class="step-dose">40 m Lunges · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Farmer&#x27;s Carry</span><span class="step-dose">150 m Farmer’s Carry · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">30–35 Wall Balls · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li></ul><p class="jump-protocol">完整熱身、E4MOM 及教練提醒見 <a href="#hyrox-endurance">下方 HYROX Endurance 菜單</a>。</p></div>
+            </details></div>
+        </div></div>
+    </section><section id="week-2" class="week-section">
+      <header class="week-head"><div><div class="week-kicker">WEEK 02</div><h2>第二週 <span>導入專項</span></h2></div><p>加入雪橇、弓步力量、Wall Ball 力量與 Z4 閾值，長跑最後加速 10′。</p></header>
+      <div class="days"><div class="day-row">
+          <div class="day-label"><span class="day-en">MON</span><span class="day-zh">星期一</span></div>
+          <div class="day-workouts"><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜12.5 m × 8</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">8 組：12.5 公尺推雪橇（截圖標註 +35 kg、unbroken）→ 60 秒 Assault Bike。+35 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">12.5 m × 8（+35 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 40′ Z2＋Strides</span>
+                <span class="duration">40 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；包含加速跑（Strides），但截圖未顯示組數與距離。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">40 分鐘</span></li><li><span class="step-name">Strides 加速跑</span><span class="step-dose">組數與距離未提供</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">上肢通用體能｜GPP Upper</span>
+                
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Incline Bench Press</span><span class="step-dose">上斜臥推</span></li><li><span class="step-name">Single Arm DB Row</span><span class="step-dose">單臂啞鈴划船</span></li><li><span class="step-name">KB Farmer’s Walk</span><span class="step-dose">壺鈴農夫走路</span></li><li><span class="step-name">Pull Up</span><span class="step-dose">引體向上</span></li><li><span class="step-name">GHD Back Extension</span><span class="step-dose">GHD 背伸</span></li></ul><p class="tiny-note">原圖顯示部分完成，未提供單項動作次數。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">TUE</span><span class="day-zh">星期二</span></div>
+          <div class="day-workouts"><details class="workout workout-bike">
+              <summary>
+                <span class="type type-bike">單車</span>
+                <span class="workout-title">有氧單車 75′ Z2</span>
+                <span class="duration">75 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以低衝擊的單車訓練累積 Z2 有氧時間。</p><ul class="steps"><li><span class="step-name">Z2 Aerobic Base Bike</span><span class="step-dose">75 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">弓步力量｜Lunge Strength</span>
+                
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">兩項練習之間及各組間休息 60–90 秒；每組次數與重量未在截圖顯示。</p><ul class="steps"><li><span class="step-name">Barbell Bulgarian Split Squat</span><span class="step-dose">槓鈴保加利亞分腿蹲</span></li><li><span class="step-name">Sandbag Walking Lunge</span><span class="step-dose">沙袋行走弓步</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">WED</span><span class="day-zh">星期三</span></div>
+          <div class="day-workouts"><details class="workout workout-quality">
+              <summary>
+                <span class="type type-quality">節奏／閾值</span>
+                <span class="workout-title">閾值跑｜4 × (5′＋2′) Z4</span>
+                <span class="duration">53 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 組 5 分鐘 Z4 與 2 分鐘恢復段。原課表描述為「4×(5′+2′) @ Z4」，並提到在 Z2 學會恢復；完整暖身與收操細節未顯示。</p><ul class="steps"><li><span class="step-name">品質間歇</span><span class="step-dose">4 組 × 5 分鐘 Z4</span></li><li><span class="step-name">組間恢復</span><span class="step-dose">4 組 × 2 分鐘（教練文字提及 Z2）</span></li><li><span class="step-name">其餘時間</span><span class="step-dose">未提供細部內容</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">THU</span><span class="day-zh">星期四</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 30′ Z2</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">30 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜25 m × 4</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 組：25 公尺推雪橇（截圖標註 +25 kg、unbroken）→ 60 秒 Assault Bike。+25 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">25 m × 4（+25 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Wall Ball 力量｜Force</span>
+                <span class="duration">20 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Standing DB Press</span><span class="step-dose">站姿啞鈴肩推</span></li><li><span class="step-name">DB Push Press</span><span class="step-dose">啞鈴借力推舉</span></li><li><span class="step-name">DB Thruster</span><span class="step-dose">啞鈴深蹲推舉</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">牆球</span></li></ul><p class="tiny-note">每一動作的組數與重量未顯示；截圖未見完成紀錄。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">FRI</span><span class="day-zh">星期五</span></div>
+          <div class="day-workouts"><div class="rest-card"><span class="type type-recovery">REST</span><span>休息 / 活動度</span><small>依個人狀況恢復</small></div></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SAT</span><span class="day-zh">星期六</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">漸進長跑 60′ Z2＋10′ Z3/4</span>
+                <span class="duration">70 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">前 60 分鐘舒適 Z2，最後 10 分鐘逐漸加速至 Z3/4（negative split／後段加速），避免前段過快。</p><ul class="steps"><li><span class="step-name">Z2 長跑</span><span class="step-dose">60 分鐘</span></li><li><span class="step-name">最後加速段</span><span class="step-dose">10 分鐘 Z3/4</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SUN</span><span class="day-zh">星期日</span></div>
+          <div class="day-workouts"><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">HYROX Endurance｜5 輪</span>
+                <span class="duration">80 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 個 E4MOM 站點 × 5 輪（主課表 80 分鐘；不含 16 分鐘熱身），全程以 RPE 5–6/10 維持中等強度，Erg 以 RPE 4 恢復並保持一致輸出。</p><ul class="steps"><li><span class="step-name">Burpees ＋ Burpee Broad Jump</span><span class="step-dose">10 Burpees to Plate ＋ 20 m BBJ → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Sandbag Walking Lunges</span><span class="step-dose">40 m Lunges · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Farmer&#x27;s Carry</span><span class="step-dose">150 m Farmer’s Carry · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">30–35 Wall Balls · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li></ul><p class="jump-protocol">完整熱身、E4MOM 及教練提醒見 <a href="#hyrox-endurance">下方 HYROX Endurance 菜單</a>。</p></div>
+            </details></div>
+        </div></div>
+    </section><section id="week-3" class="week-section">
+      <header class="week-head"><div><div class="week-kicker">WEEK 03</div><h2>第三週 <span>負荷高峰</span></h2></div><p>間歇提升至 5 組，加入 200 m Lunges 與 200 次 Wall Ball 目標。</p></header>
+      <div class="days"><div class="day-row">
+          <div class="day-label"><span class="day-en">MON</span><span class="day-zh">星期一</span></div>
+          <div class="day-workouts"><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜12.5 m × 8</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">8 組：12.5 公尺推雪橇（截圖標註 +35 kg、unbroken）→ 60 秒 Assault Bike。+35 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">12.5 m × 8（+35 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 40′ Z2＋Strides</span>
+                <span class="duration">40 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；包含加速跑（Strides），但截圖未顯示組數與距離。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">40 分鐘</span></li><li><span class="step-name">Strides 加速跑</span><span class="step-dose">組數與距離未提供</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">上肢通用體能｜GPP Upper</span>
+                <span class="duration">25 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Incline Bench Press</span><span class="step-dose">上斜臥推</span></li><li><span class="step-name">Single Arm DB Row</span><span class="step-dose">單臂啞鈴划船</span></li><li><span class="step-name">KB Farmer’s Walk</span><span class="step-dose">壺鈴農夫走路</span></li><li><span class="step-name">Pull Up</span><span class="step-dose">引體向上</span></li><li><span class="step-name">GHD Back Extension</span><span class="step-dose">GHD 背伸</span></li></ul><p class="tiny-note">原圖僅顯示預定課程，未見實際完成紀錄。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">TUE</span><span class="day-zh">星期二</span></div>
+          <div class="day-workouts"><details class="workout workout-bike">
+              <summary>
+                <span class="type type-bike">單車</span>
+                <span class="workout-title">有氧單車 75′ Z2</span>
+                <span class="duration">75 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以低衝擊的單車訓練累積 Z2 有氧時間。</p><ul class="steps"><li><span class="step-name">Z2 Aerobic Base Bike</span><span class="step-dose">75 分鐘</span></li></ul></div>
+            </details><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">行走弓步｜Lunges 200 m</span>
+                <span class="duration">10 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以比賽重量完成總距離 200 m 行走弓步；在動作品質、準確度良好的前提下盡快完成。截圖未提供實際使用的重量。</p><ul class="steps"><li><span class="step-name">Sandbag Walking Lunges</span><span class="step-dose">200 m；race weight</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">WED</span><span class="day-zh">星期三</span></div>
+          <div class="day-workouts"><details class="workout workout-quality">
+              <summary>
+                <span class="type type-quality">節奏／閾值</span>
+                <span class="workout-title">閾值跑｜5 × (5′＋2′) Z4</span>
+                <span class="duration">60 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">5 組 5 分鐘 Z4 與 2 分鐘恢復段。原課表描述為「5×(5′+2′) @ Z4」，並提到在 Z2 學會恢復；完整暖身與收操細節未顯示。</p><ul class="steps"><li><span class="step-name">品質間歇</span><span class="step-dose">5 組 × 5 分鐘 Z4</span></li><li><span class="step-name">組間恢復</span><span class="step-dose">5 組 × 2 分鐘（教練文字提及 Z2）</span></li><li><span class="step-name">其餘時間</span><span class="step-dose">未提供細部內容</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">THU</span><span class="day-zh">星期四</span></div>
+          <div class="day-workouts"><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜25 m × 4</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 組：25 公尺推雪橇（截圖標註 +25 kg、unbroken）→ 60 秒 Assault Bike。+25 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">25 m × 4（+25 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 30′ Z2</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">30 分鐘</span></li></ul></div>
+            </details><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">Wall Ball｜200 次目標</span>
+                <span class="duration">10 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">課表名稱標註「Wall Ball — 200x」，在疲勞狀態下練習模擬賽日；實際完成次數無法僅依截圖核實。</p><ul class="steps"><li><span class="step-name">Wall Ball</span><span class="step-dose">目標 200 次（分組／負重未顯示）</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">FRI</span><span class="day-zh">星期五</span></div>
+          <div class="day-workouts"><div class="rest-card"><span class="type type-recovery">REST</span><span>休息 / 活動度</span><small>依個人狀況恢復</small></div></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SAT</span><span class="day-zh">星期六</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">漸進長跑 60′ Z2＋20′ Z3/4</span>
+                <span class="duration">80 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">前 60 分鐘舒適 Z2，最後 20 分鐘逐漸加速至 Z3/4（negative split／後段加速），避免前段過快。</p><ul class="steps"><li><span class="step-name">Z2 長跑</span><span class="step-dose">60 分鐘</span></li><li><span class="step-name">最後加速段</span><span class="step-dose">20 分鐘 Z3/4</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SUN</span><span class="day-zh">星期日</span></div>
+          <div class="day-workouts"><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">HYROX Endurance｜5 輪</span>
+                <span class="duration">80 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 個 E4MOM 站點 × 5 輪（主課表 80 分鐘；不含 16 分鐘熱身），全程以 RPE 5–6/10 維持中等強度，Erg 以 RPE 4 恢復並保持一致輸出。</p><ul class="steps"><li><span class="step-name">Burpees ＋ Burpee Broad Jump</span><span class="step-dose">10 Burpees to Plate ＋ 20 m BBJ → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Sandbag Walking Lunges</span><span class="step-dose">40 m Lunges · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Farmer&#x27;s Carry</span><span class="step-dose">150 m Farmer’s Carry · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">30–35 Wall Balls · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li></ul><p class="jump-protocol">完整熱身、E4MOM 及教練提醒見 <a href="#hyrox-endurance">下方 HYROX Endurance 菜單</a>。</p></div>
+            </details></div>
+        </div></div>
+    </section><section id="week-4" class="week-section">
+      <header class="week-head"><div><div class="week-kicker">WEEK 04</div><h2>第四週 <span>卸載恢復</span></h2></div><p>保留品質刺激並回收專項總量；HYROX 從 5 輪降至 3 輪。</p></header>
+      <div class="days"><div class="day-row">
+          <div class="day-label"><span class="day-en">MON</span><span class="day-zh">星期一</span></div>
+          <div class="day-workouts"><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜12.5 m × 8</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">8 組：12.5 公尺推雪橇（截圖標註 +35 kg、unbroken）→ 60 秒 Assault Bike。+35 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">12.5 m × 8（+35 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 35′ Z2</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">35 分鐘</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">TUE</span><span class="day-zh">星期二</span></div>
+          <div class="day-workouts"><details class="workout workout-bike">
+              <summary>
+                <span class="type type-bike">單車</span>
+                <span class="workout-title">有氧單車 60′ Z2</span>
+                <span class="duration">60 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以低衝擊的單車訓練累積 Z2 有氧時間。</p><ul class="steps"><li><span class="step-name">Z2 Aerobic Base Bike</span><span class="step-dose">60 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">弓步力量｜Lunge Strength</span>
+                
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">兩項動作，組間休息 60–90 秒。原圖未揭示各組次數與重量。</p><ul class="steps"><li><span class="step-name">Barbell Bulgarian Split Squat</span><span class="step-dose">槓鈴保加利亞分腿蹲</span></li><li><span class="step-name">Sandbag Walking Lunge</span><span class="step-dose">沙袋行走弓步</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">上肢通用體能｜GPP Upper</span>
+                
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Incline Bench Press</span><span class="step-dose">上斜臥推</span></li><li><span class="step-name">Single Arm DB Row</span><span class="step-dose">單臂啞鈴划船</span></li><li><span class="step-name">KB Farmer’s Walk</span><span class="step-dose">壺鈴農夫走路</span></li><li><span class="step-name">Pull Up</span><span class="step-dose">引體向上</span></li><li><span class="step-name">GHD Back Extension</span><span class="step-dose">GHD 背伸</span></li></ul><p class="tiny-note">8/25 的 GPP Upper 卡片在提供的截圖底部被截斷；動作採同名課表前幾週可見的版本，當日組數／時間／完成狀態未知。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">WED</span><span class="day-zh">星期三</span></div>
+          <div class="day-workouts"><details class="workout workout-quality">
+              <summary>
+                <span class="type type-quality">節奏／閾值</span>
+                <span class="workout-title">閾值跑｜4 × (5′＋2′) Z4</span>
+                <span class="duration">53 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 組 5 分鐘 Z4 與 2 分鐘恢復段。原課表描述為「4×(5′+2′) @ Z4」，並提到在 Z2 學會恢復；完整暖身與收操細節未顯示。</p><ul class="steps"><li><span class="step-name">品質間歇</span><span class="step-dose">4 組 × 5 分鐘 Z4</span></li><li><span class="step-name">組間恢復</span><span class="step-dose">4 組 × 2 分鐘（教練文字提及 Z2）</span></li><li><span class="step-name">其餘時間</span><span class="step-dose">未提供細部內容</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">THU</span><span class="day-zh">星期四</span></div>
+          <div class="day-workouts"><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Sleds｜25 m × 4</span>
+                <span class="duration">35 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 組：25 公尺推雪橇（截圖標註 +25 kg、unbroken）→ 60 秒 Assault Bike。+25 kg 沿用原圖標記，非總雪橇重量。</p><ul class="steps"><li><span class="step-name">Sleds 推雪橇</span><span class="step-dose">25 m × 4（+25 kg；不中斷）</span></li><li><span class="step-name">每組銜接 Assault Bike</span><span class="step-dose">60 秒</span></li></ul></div>
+            </details><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">輕鬆跑 30′ Z2</span>
+                <span class="duration">30 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">全程維持 Z2 舒適有氧強度；保持可以對話的呼吸節奏。</p><ul class="steps"><li><span class="step-name">Z2 輕鬆跑</span><span class="step-dose">30 分鐘</span></li></ul></div>
+            </details><details class="workout workout-strength">
+              <summary>
+                <span class="type type-strength">力量／專項</span>
+                <span class="workout-title">Wall Ball 力量｜Force</span>
+                
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">依教練原課表列出動作順序。截圖未顯示各動作的重量、次數及組數分配，請勿將它們視為已知內容。</p><ul class="steps"><li><span class="step-name">Standing DB Press</span><span class="step-dose">站姿啞鈴肩推</span></li><li><span class="step-name">DB Push Press</span><span class="step-dose">啞鈴借力推舉</span></li><li><span class="step-name">DB Thruster</span><span class="step-dose">啞鈴深蹲推舉</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">牆球</span></li></ul><p class="tiny-note">來源卡片記錄 10/12 組與 1/4 動作；原圖未顯示當日原訂時長。</p></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">FRI</span><span class="day-zh">星期五</span></div>
+          <div class="day-workouts"><div class="rest-card"><span class="type type-recovery">REST</span><span>休息 / 活動度</span><small>依個人狀況恢復</small></div></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SAT</span><span class="day-zh">星期六</span></div>
+          <div class="day-workouts"><details class="workout workout-run">
+              <summary>
+                <span class="type type-run">跑步</span>
+                <span class="workout-title">長跑 60′ Z2＋Strides</span>
+                <span class="duration">60 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">以 60 分鐘 Z2 輕鬆跑為主，附加加速跑 Strides；截圖未提供 Strides 次數與距離。</p><ul class="steps"><li><span class="step-name">Z2 長跑</span><span class="step-dose">60 分鐘</span></li><li><span class="step-name">Strides 加速跑</span><span class="step-dose">次數／距離未提供</span></li></ul></div>
+            </details></div>
+        </div><div class="day-row">
+          <div class="day-label"><span class="day-en">SUN</span><span class="day-zh">星期日</span></div>
+          <div class="day-workouts"><details class="workout workout-hyrox">
+              <summary>
+                <span class="type type-hyrox">HYROX</span>
+                <span class="workout-title">HYROX Endurance｜3 輪</span>
+                <span class="duration">48 分鐘</span>
+                <span class="toggle" aria-hidden="true">＋</span>
+              </summary>
+              <div class="workout-body"><p class="desc">4 個 E4MOM 站點 × 3 輪（主課表 48 分鐘；不含 16 分鐘熱身），全程以 RPE 5–6/10 維持中等強度，Erg 以 RPE 4 恢復並保持一致輸出。</p><ul class="steps"><li><span class="step-name">Burpees ＋ Burpee Broad Jump</span><span class="step-dose">10 Burpees to Plate ＋ 20 m BBJ → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Sandbag Walking Lunges</span><span class="step-dose">40 m Lunges · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Farmer&#x27;s Carry</span><span class="step-dose">150 m Farmer’s Carry · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li><li><span class="step-name">Wall Ball</span><span class="step-dose">30–35 Wall Balls · Race Weight → 剩餘時間 Max Cal Erg @ RPE 4</span></li></ul><p class="jump-protocol">完整熱身、E4MOM 及教練提醒見 <a href="#hyrox-endurance">下方 HYROX Endurance 菜單</a>。</p></div>
+            </details></div>
+        </div></div>
+    </section>
+  <section class="protocol" id="hyrox-endurance">
+    <span class="kicker">HYROX ENDURANCE</span>
+    <h2>HYROX Endurance｜完整訓練</h2>
+    <p class="protocol-lede">全程以 RPE 5–6/10 的中等強度進行較長時間的有氧訓練，重點是站點技術、動作效率與穩定心率。</p>
+    <div class="dose-grid"><div class="dose-cell"><b>W1</b><strong>4 輪</strong><small>64 分鐘主訓練</small></div><div class="dose-cell"><b>W2</b><strong>5 輪</strong><small>80 分鐘主訓練</small></div><div class="dose-cell"><b>W3</b><strong>5 輪</strong><small>80 分鐘主訓練</small></div><div class="dose-cell"><b>W4</b><strong>3 輪</strong><small>48 分鐘主訓練</small></div></div>
+    <h3>熱身｜16 分鐘</h3>
+    <div class="warmups"><div class="warm-item"><b>5′</b><span>Bike</span></div><div class="warm-item"><b>3′</b><span>Row</span></div><div class="warm-item"><b>3′</b><span>Ski</span></div><div class="warm-item"><b>5′</b><span>Mobility（from bottom to top）</span></div></div>
+    <h3>主訓練｜每輪 16 分鐘</h3>
+    <p class="main-note">每 4 分鐘開始下一個站點，先完成動作，剩餘時間做 Erg（Ski／Row／Bike 交替）。一輪四站，連續進行。</p>
+    <div class="stations"><div class="station"><span class="station-no">01 · E4MOM</span><h4>Burpees ＋ Burpee Broad Jump</h4><div class="station-dose">10 Burpees to Plate ＋ 20 m BBJ</div><div class="erg">剩餘時間 Max Cal Erg @ RPE 4</div></div><div class="station"><span class="station-no">02 · E4MOM</span><h4>Sandbag Walking Lunges</h4><div class="station-dose">40 m Lunges · Race Weight</div><div class="erg">剩餘時間 Max Cal Erg @ RPE 4</div></div><div class="station"><span class="station-no">03 · E4MOM</span><h4>Farmer&#x27;s Carry</h4><div class="station-dose">150 m Farmer’s Carry · Race Weight</div><div class="erg">剩餘時間 Max Cal Erg @ RPE 4</div></div><div class="station"><span class="station-no">04 · E4MOM</span><h4>Wall Ball</h4><div class="station-dose">30–35 Wall Balls · Race Weight</div><div class="erg">剩餘時間 Max Cal Erg @ RPE 4</div></div></div>
+    <p class="rules"><strong>執行規則：</strong>4 個 E4MOM 連續完成；站點之間、輪與輪之間都不休息。Erg 維持 RPE 4，站點轉換用慢跑而不是走路。</p>
+    <h3>教練提醒｜Coaching Cues</h3>
+    <ul class="cue-list"><li>執行每個站點時，持續思考如何改善動作效率與技術。</li><li>全程避免心率明顯飆升，Wall Balls 可能例外。</li><li>利用 Erg 調整呼吸，但仍維持穩定、扎實的功率。</li><li>轉換站點有意識地慢跑，不走路。</li></ul>
+  </section>
+  <footer class="footer">以教練原始四週課表與補充的 HYROX Endurance 說明整理。</footer>
+</main>
+</body>
+</html>
